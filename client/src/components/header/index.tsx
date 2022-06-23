@@ -8,6 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import UserPassModal from '../modalHeader/indext';
 import LogoHeader from "../../assets/logo-home.png"
+import { useDispatch } from "react-redux"
+import { changeOpenCloseUserPassModal } from '../../redux/reducers/searchBarHeaderComponent';
 import { Container } from "./style"
 
 interface Iprops {
@@ -15,11 +17,10 @@ interface Iprops {
 }
 
 export default function HeaderComponent({ RenderResult }: Iprops): JSX.Element {
+
     const [selectOption, setSelectOption] = useState<string>("")
     const [serverName, setServerName] = useState<string>("")
-    // const [user, setUser] = useState<string>("")
-    // const [password, setPassword] = useState<string>("")
-    const [openCloseUserPass, setOpenCloseUserPass] = useState<boolean>(false)
+    const dispatch = useDispatch()
 
     function HandleSelectOption(event: SelectChangeEvent) {
         setSelectOption(event.target.value)
@@ -27,32 +28,29 @@ export default function HeaderComponent({ RenderResult }: Iprops): JSX.Element {
     function HandleServerName(data: string) {
         setServerName(data)
     }
-
     //open and close modal to get credentials
-    function OpenCloseModal() {
-        setOpenCloseUserPass(!openCloseUserPass)
+    function OpenCloseModal(open: boolean) {
+        dispatch(changeOpenCloseUserPassModal({ open: open }))
     }
-
     //in the search bar, to type enter verify before if fields is not null
     //and the end open the modal to get credentials
     function GetCredentials(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
-            if (serverName == "" || serverName == undefined || serverName == null) {
+            if (serverName === "" || serverName === undefined || serverName === null) {
                 alert(" Search server field must be filled ")
                 return
             }
-            if (selectOption == "" || selectOption == undefined || selectOption == null) {
+            if (selectOption === "" || selectOption === undefined || selectOption === null) {
                 alert("Options field must be filled ")
                 return
             }
-            OpenCloseModal()
+            OpenCloseModal(true)
         }
     }
-
     //the modal calling this function to send user and password
     //and return data to parent component
     function ReturnDataParentComponent(user: string, password: string) {
-        OpenCloseModal()
+        OpenCloseModal(false)
         RenderResult(serverName, user, password, selectOption)
     }
     return (
@@ -76,7 +74,7 @@ export default function HeaderComponent({ RenderResult }: Iprops): JSX.Element {
             </div>
             <div>
                 <FormControl fullWidth sx={{ m: 1, minWidth: 170 }}>
-                    <InputLabel id="demo-simple-select-label">Feature</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Options</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -84,6 +82,7 @@ export default function HeaderComponent({ RenderResult }: Iprops): JSX.Element {
                         label="Options"
                         onChange={HandleSelectOption}
                     >
+                        {/* the "value" field string is the path to backend */}
                         <MenuItem value={"disks"}>DISKS</MenuItem>
                         <MenuItem value={"cluster"}>CLUSTER</MenuItem>
                         <MenuItem value={"rammemory"}>RAM MEMORY</MenuItem>
@@ -95,7 +94,7 @@ export default function HeaderComponent({ RenderResult }: Iprops): JSX.Element {
                     </Select>
                 </FormControl>
             </div>
-            <UserPassModal openClose={openCloseUserPass} OpenCloseModal={OpenCloseModal} ReturnData={ReturnDataParentComponent} />
+            <UserPassModal ReturnData={ReturnDataParentComponent} />
         </Container>
     )
 }

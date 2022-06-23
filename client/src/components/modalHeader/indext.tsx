@@ -8,7 +8,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Modal from '@mui/material/Modal';
 import { Container } from "./style"
 import { useState } from 'react';
-
+import { useDispatch, useSelector } from "react-redux"
+import { getSearchBarHeaderComponent, changeOpenCloseUserPassModal } from '../../redux/reducers/searchBarHeaderComponent';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -24,14 +25,14 @@ const style = {
 };
 
 interface Iprops {
-    openClose: boolean;
-    OpenCloseModal: () => void
     ReturnData: (user: string, password: string) => void
 }
 
-export default function UserPassModal({ openClose, OpenCloseModal, ReturnData }: Iprops) {
+export default function UserPassModal({ ReturnData }: Iprops) {
     const [user, setUser] = useState<string>("")
     const [pass, setPass] = useState<string>("")
+    const dispatch = useDispatch()
+    const dataComponentStore = useSelector(getSearchBarHeaderComponent)
 
     function ReturnUserPass() {
         ReturnData(user, pass)
@@ -42,11 +43,13 @@ export default function UserPassModal({ openClose, OpenCloseModal, ReturnData }:
     function HandlePass(event: React.ChangeEvent<HTMLInputElement>) {
         setPass(event.target.value)
     }
+    function ClickCancelButton() {
+        dispatch(changeOpenCloseUserPassModal({ open: false }))
+    }
     return (
         <div>
             <Modal
-                open={openClose}
-                // onClose={OpenCloseModal}
+                open={dataComponentStore.openCloseUserPassModal}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -87,7 +90,7 @@ export default function UserPassModal({ openClose, OpenCloseModal, ReturnData }:
                                 </div>
                                 <div>
                                     <Button sx={{ width: '12ch' }} variant="outlined"
-                                        onClick={OpenCloseModal}
+                                        onClick={ClickCancelButton}
                                     >Cancel</Button>
                                 </div>
                             </div>
