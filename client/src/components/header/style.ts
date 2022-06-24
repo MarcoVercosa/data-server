@@ -10,3 +10,17 @@ export const Container: any = styled.div`
         border-radius: 16px;
     }
 `
+export const DataDiskHead: any = styled.div`
+        background-color: #ffab3f;
+    div{
+        font-family: sans-serif;
+        color:#575d5f;
+        width: 35%;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-around;
+        text-align: center;
+        align-items: center;
+    }
+    
+`

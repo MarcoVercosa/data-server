@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IChangeDataSearchServer } from "../interfaces/redux.interfaces"
 
 interface IInitialState {
+    dateTime: string;
     dataSearch: any
 }
 
 const initialState: IInitialState = {
+    dateTime: "",
     dataSearch: ""
 }
 
@@ -15,6 +17,8 @@ const dataSearchServer = createSlice({
     initialState,
     reducers: {
         changeDataSearchServer: (state: IInitialState, { payload }: IChangeDataSearchServer): void => {
+            let date = new Date();
+            state.dateTime = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} > ${date.getHours()}hs:${date.getMinutes()}mins`
             state.dataSearch = payload
         }
     }

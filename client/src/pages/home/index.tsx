@@ -11,43 +11,28 @@ import RenderDisk from "../../components/renderResults/disks"
 import RenderInventory from "../../components/renderResults/inventory"
 import RenderLocalUsers from "../../components/renderResults/localUsers"
 import RenderMemoryRam from "../../components/renderResults/memoryRam"
+import Loading from '../../components/loading';
 import './index.css';
 
-interface IRender {
-  renderDisk: boolean,
-  renderCluster: boolean,
-  renderRamMemory: boolean,
-  renderCpu: boolean,
-  renderLocalUsers: boolean,
-  renderAdmGroup: boolean,
-  renderInventory: boolean
-}
-
 function Home(): JSX.Element {
-  const [server, setServer] = useState<string>("")
-  const [dataServer, setDataServer] = useState(Array<any>)
   const dispatch = useDispatch()
   const dataComponentSearchBarStore = useSelector(getSearchBarHeaderComponent)
-  const [renderComponent, setRenderComponent] = useState<IRender>({
-    renderDisk: false,
-    renderCluster: false,
-    renderRamMemory: false,
-    renderCpu: false,
-    renderLocalUsers: false,
-    renderAdmGroup: false,
-    renderInventory: false
-  })
+  const [loading, setloading] = useState<boolean>(false)
 
   //this function is called by HeaderComponent
   async function RenderResult(server: string, user: string, pass: string, option: string) {
+    dispatch(changeSelectOption({ selectOption: "" }))//  if there is any component rendered, force derender to request loading
+    setloading(true)
     dispatch(changeServerName({ serverName: server }))
     GetDataBackEndPost(option, server, user, pass)//find data API
       .then((response: any) => {
         dispatch(changeDataSearchServer({ data: response.data })) //update data found server
         dispatch(changeSelectOption({ selectOption: option }))  // update option selected, used by rendering component bellow
+        setloading(false)
       })
       .catch((err: any) => {
         console.log(err)
+        setloading(false)
       })
   }
   return (
@@ -73,6 +58,10 @@ function Home(): JSX.Element {
       }
       {dataComponentSearchBarStore.selectOption === "inventory" &&
         <RenderInventory />
+      }
+
+      {loading &&
+        <Loading />
       }
     </header>
 

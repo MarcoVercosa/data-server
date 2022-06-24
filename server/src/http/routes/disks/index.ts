@@ -24,7 +24,7 @@ disksRoute.post("/disks", async (request: Request, response: Response) => {
         const { server, user, pass }: IParamsBody = request.body
         const scriptCommand = PowerShell.command`src/scripts/disks/start.ps1 ${server} ${user} ${pass}`
         const result = await ps.invoke(scriptCommand);
-
+        console.log(JSON.parse(result.raw))
         response.json(JSON.parse(result.raw))
     } catch (err: unknown) {
         response.send(`<h1>Internal error:  ${err}</h1>`)
