@@ -8,7 +8,9 @@ interface IInitialState {
 
 const initialState: IInitialState = {
     dateTime: "",
-    dataSearch: ""
+    dataSearch: {
+        data: []
+    }
 }
 
 const dataSearchServer = createSlice({
@@ -26,6 +28,6 @@ const dataSearchServer = createSlice({
 //exporta os reducers para serem usados nos componentes com o dispatch
 export const { changeDataSearchServer } = dataSearchServer.actions
 //exporta uma func q pega todo o estado da "Store" e retornna somente o da tela incial
-export const getDataSearchServer = (state: any) => state.storeDataSearchServer
+export const getDataSearchServer = (state: any) => state.storeDataSearchServer as IInitialState
 //export to store
 export default dataSearchServer.reducer

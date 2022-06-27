@@ -1,9 +1,8 @@
 import React from 'react'
 import { useSelector } from "react-redux"
 import { getDataSearchServer } from '../../../redux/reducers/dataSearchServer';
-import { getSearchBarHeaderComponent } from "../../../redux/reducers/searchBarHeaderComponent"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import PieChart from "./charts"
+import PieChart from './chartDisk';
 import DiskDetail from "./diskDetail"
 import { DataDiskStyle, DiskDetailDiv } from "./style"
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -26,11 +25,9 @@ interface IDetailDisk {
 }
 
 function RenderDisk(): JSX.Element {
-    const dataComponentSearchBarStore: any = useSelector(getDataSearchServer)
+    const dataComponentSearchBarStore = useSelector(getDataSearchServer)
     const dataDisk: IDataDisk[] = dataComponentSearchBarStore.dataSearch?.data[0]?.value
     const dataDiskDetail: IDetailDisk[] = dataComponentSearchBarStore.dataSearch?.data[1]?.value
-    const { serverName } = useSelector(getSearchBarHeaderComponent)
-    console.log(dataDisk)
     return (
         <>
             <DataDiskStyle>

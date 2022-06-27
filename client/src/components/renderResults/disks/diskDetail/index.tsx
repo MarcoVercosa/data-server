@@ -17,14 +17,6 @@ interface IDetailDisk {
     }
 }
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
 
 export default function DiskDetail({ data }: IDetailDisk) {
     return (
@@ -58,7 +50,6 @@ export default function DiskDetail({ data }: IDetailDisk) {
     );
 }
 
-
 export const Container: any = styled.div`
     display: flex;
     flex-direction: column;
@@ -75,7 +66,5 @@ export const Container: any = styled.div`
             font-weight: bold;
             color: #707372
         }
-    }
-
-    
+    }    
 `
