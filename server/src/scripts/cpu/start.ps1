@@ -13,7 +13,7 @@ $credential = New-Object -TypeName System.Management.Automation.PSCredential `
 
 #$credencial = Get-Credential
 
-$conexao = New-PSSession -ComputerName $server -Credential $credential -ErrorAction SilentlyContinue  
+$conexao = New-PSSessions -ComputerName $server -Credential $credential -ErrorAction SilentlyContinue  
 
 if ($conexao -ne $null) { 
     $dataReturn = invoke-Command -Session $conexao -FilePath src\scripts\cpu\cpu.ps1 -ErrorAction SilentlyContinue -WarningAction SilentlyContinue 
@@ -21,6 +21,10 @@ if ($conexao -ne $null) {
 }
 
 else {    
-    return "<h2> Server $server is not accessible or credentials are incorrect </h2>"
+    $return = @{
+        'message' = 'error'
+        'result' = "Server $server is not accessible or credentials are incorrect"
+    }
+    return $return | ConvertTo-Json
 }
     

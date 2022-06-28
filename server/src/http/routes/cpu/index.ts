@@ -23,9 +23,14 @@ cpuRoute.post("/cpu", async (request: Request, response: Response) => {
         const { server, user, pass }: IParamsBody = request.body
         const scriptCommand = PowerShell.command`src/scripts/cpu/start.ps1 ${server} ${user} ${pass}`
         const result = await ps.invoke(scriptCommand);
-        response.json(JSON.parse(result.raw))
+        let getResult = await JSON.parse(result.raw)
+        if (getResult.message === "error") {
+            response.status(501).json(getResult)
+            return
+        }
+        response.status(200).json(getResult)
     } catch (err: unknown) {
-        response.send(`<h1>Internal error:  ${err}</h1>`)
+        response.status(501).json(err)
     }
 })
 export { cpuRoute }

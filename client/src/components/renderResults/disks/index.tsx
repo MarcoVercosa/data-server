@@ -26,8 +26,11 @@ interface IDetailDisk {
 
 function RenderDisk(): JSX.Element {
     const dataComponentSearchBarStore = useSelector(getDataSearchServer)
-    const dataDisk: IDataDisk[] = dataComponentSearchBarStore.dataSearch?.data[0]?.value
-    const dataDiskDetail: IDetailDisk[] = dataComponentSearchBarStore.dataSearch?.data[1]?.value
+    let dataDisk: IDataDisk[] = dataComponentSearchBarStore.dataSearch?.data[0]?.value
+    if (dataDisk === undefined || dataDisk === null) { dataDisk = [dataComponentSearchBarStore.dataSearch?.data[0]] }
+    //em raros casos, se há somente um disco, o resultado não vem no objeto value, por isso faz a verificação e tranforma em array (que é o padrão)
+    let dataDiskDetail: IDetailDisk[] = dataComponentSearchBarStore.dataSearch?.data[1]?.value
+    if (dataDiskDetail === undefined || dataDisk === null) { dataDiskDetail = [dataComponentSearchBarStore.dataSearch?.data[1]] }
     return (
         <>
             <DataDiskStyle>

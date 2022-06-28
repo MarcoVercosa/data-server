@@ -13,7 +13,6 @@ interface ILocalUser {
 }
 
 export default function AdmGroupData({ data }: { data: ILocalUser[] }) {
-
     return (
         <>
             {data.map((data: ILocalUser, index: number) => {

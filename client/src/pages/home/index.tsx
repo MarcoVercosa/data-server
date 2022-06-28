@@ -26,12 +26,17 @@ function Home(): JSX.Element {
     dispatch(changeServerName({ serverName: server }))
     GetDataBackEndPost(option, server, user, pass)//find data API
       .then((response: any) => {
-        dispatch(changeDataSearchServer({ data: response.data })) //update data found server
-        dispatch(changeSelectOption({ selectOption: option }))  // update option selected, used by rendering component bellow
-        setloading(false)
+        if (response.status == 200) {
+          dispatch(changeDataSearchServer({ data: response.data })) //update data found server
+          dispatch(changeSelectOption({ selectOption: option }))  // update option selected, used by rendering component bellow
+          setloading(false)
+        } else {
+          alert(`Error: ${response.response.data.result || response.response.data.name}`)
+          setloading(false)
+        }
       })
       .catch((err: any) => {
-        console.log(err)
+        alert(`Error: ${err.response.data.result}`)
         setloading(false)
       })
   }

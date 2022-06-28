@@ -5,22 +5,22 @@ $htmlMenu = @"
             <a href="#Sistemaoperacional">Sistema operacional</a>
             <a href="#cpu">CPU</a>
             <a href="#cputopprocessos">CPU TOP 5</a>
-            <a href="#sessoesativas">Sessões ativas</a>
-            <a href="#memoriaram">Memória RAM</a>
-            <a href="#memoriatopprocess">Memória RAM Top 5</a>           
-            <a href="#placagrafica">Placa gráfica</a>
+            <a href="#sessoesativas">Sessoes ativas</a>
+            <a href="#memoriaram">Memoria RAM</a>
+            <a href="#memoriatopprocess">Memoria RAM Top 5</a>           
+            <a href="#placagrafica">Placa grafica</a>
             <a href="#computador">Computador</a>
             <a href="#bios">BIOS</a>
-            <a href="#usuarioslocais">Usuários locais</a>
+            <a href="#usuarioslocais">Usuarios locais</a>
             <a href="#administrators">'Administrators' Group</a>
             <a href="#remotedesktopuser">'Remote Desktop Users' Group</a>
             <a href="#discos">Discos</a>
             <a href="#discostoragedetail">Discos (Storage Detail)</a>
             <a href="#clustergroup">Cluster Group</a>
             <a href="#clusternode">Cluster Node</a>
-            <a href="#servicosparados">Serviços parados</a>
-            <a href="#servicosexecucao">Serviços em execução</a>
-            <a href="#servicosparadosautomatic">Serviços parados (Auto)</a>
+            <a href="#servicosparados">Servicos parados</a>
+            <a href="#servicosexecucao">Servicos em execucao</a>
+            <a href="#servicosparadosautomatic">Servicos parados (Auto)</a>
             <a href="#hotfix">Hot Fix</a>
             <a href="#rededetalhes">Rede detalhes</a>
             <a href="#rotas">Rotas</a>
@@ -125,9 +125,9 @@ $style = @"
         }
 
 
-        /* ######### Style botão Menu ######## */
-        /* ######### Style botão Menu ######## */
-        /* ######### Style botão Menu ######## */
+        /* ######### Style botao Menu ######## */
+        /* ######### Style botao Menu ######## */
+        /* ######### Style botao Menu ######## */
 
         .dropdown-content::-webkit-scrollbar {
             width: 12px;
@@ -153,11 +153,12 @@ $style = @"
 
         .dropdown {
             margin-top: 27px;
+            margin-left: 5px;
             display: inline-block;
             position: fixed;
         }
 
-        /* Dropdown botão */
+        /* Dropdown botao */
         .dropbtn {
             padding: 0.9em 2em;
             color: #fff;
@@ -283,9 +284,9 @@ $style = @"
             }
         }
 
-       /* ######### Style botão mostrar/ocultar Tabela  ######## */
-       /* ######### Style botão mostrar/ocultar Tabela  ######## */
-       /* ######### Style botão mostrar/ocultar Tabela  ######## */
+       /* ######### Style botao mostrar/ocultar Tabela  ######## */
+       /* ######### Style botao mostrar/ocultar Tabela  ######## */
+       /* ######### Style botao mostrar/ocultar Tabela  ######## */
        
        #showhidebutton {
             background-color: #cf245f;
@@ -332,7 +333,7 @@ $style = @"
 # #################################  SCRIPT  #################################
 # #################################  SCRIPT  #################################
 
-#Não deixa que os erros e avisos que ocorrem no script interrompam a execução
+#Nao deixa que os erros e avisos que ocorrem no script interrompam a execucao
 $ErrorActionPreference = 'silentlycontinue'
 $WarningPreference = 'silentlycontinue'
 
@@ -367,20 +368,20 @@ Out-String
 
 $percentageCPU = Get-CimInstance win32_processor | Measure-Object -Property LoadPercentage -Average
 
-# se média de uso da CPU for menor ou igual a 90%
+# se media de uso da CPU for menor ou igual a 90%
 if ($percentageCPU.Average -lt 90) {
-    $cpu = $cpu -replace "<td>Usage %:</td>", "<td class=green >Média de uso Menor / Igual 90%:</td>"
+    $cpu = $cpu -replace "<td>Usage %:</td>", "<td class=green >Media de uso Menor / Igual 90%:</td>"
     $cpu = $cpu -replace "<td>waiting cpu</td>", "<td class=green > $($percentageCPU.Average)% - OK </td>"       
        
 }
-# se média de uso da CPU for maior ou igual a 90% e menor ou igual a 95%
+# se media de uso da CPU for maior ou igual a 90% e menor ou igual a 95%
 ElseIf (($percentageCPU.Average -gt 90) -and ($percentageCPU.Average -lt 95) ) {
-    $cpu = $cpu -replace "<td>Usage %:</td>", "<td class=yellow >Média de uso Menor / Equal 95%:</td>"
+    $cpu = $cpu -replace "<td>Usage %:</td>", "<td class=yellow >Media de uso Menor / Equal 95%:</td>"
     $cpu = $cpu -replace "<td>waiting cpu</td>", "<td class=yellow >$($percentageCPU.Average)% - Your performance is required </td>" 
 }
-# se média de uso da CPU for maior ou igual a 95%
+# se media de uso da CPU for maior ou igual a 95%
 ElseIf ( $percentageCPU.Average -gt 95) {
-    $cpu = $cpu -replace "<td>Usage %:</td>", "<td class=red >Média de uso Maior / Igual  95%:</td>"
+    $cpu = $cpu -replace "<td>Usage %:</td>", "<td class=red >Media de uso Maior / Igual  95%:</td>"
     $cpu = $cpu -replace "<td>waiting cpu</td>", "<td class=red > $($percentageCPU.Average)% - Your performance is extremely necessary</td>"       
 }
 
@@ -396,27 +397,27 @@ ConvertTo-Html  -PreContent "<center><h2 id='cputopprocessos'>CPU Top 5 </h2><bu
 Out-String
 $cpuTopFiveProcess = $cpuTopFiveProcess -replace "<table>", "<table class='tablecpuTopFiveProcess'>"
 
-######################### Memória RAM info ####################################
-######################### Memória RAM info ####################################
-######################### Memória RAM info ####################################
+######################### Memoria RAM info ####################################
+######################### Memoria RAM info ####################################
+######################### Memoria RAM info ####################################
 
 $totalRam = [math]::Round((Get-WmiObject Win32_OperatingSystem | Select -ExpandProperty TotalVisibleMemorySize) / 1MB, 2)
 $freeRam = [math]::Round((Get-WmiObject Win32_OperatingSystem | Select -ExpandProperty FreePhysicalMemory) / 1MB, 2)
 $ramMemory = Get-WmiObject Win32_OperatingSystem  | Select-Object @{Label = "Total RAM"; Expression = { $totalRam } }, @{Label = "Free RAM"; Expression = { $freeRam } }, @{Label = "Alert"; Expression = { "waiting memory" } }  | 
-ConvertTo-Html -Fragment -as list -PreContent "<center><h2 id='memoriaram'>Memória RAM (GB)</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tableramMemory')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -Fragment -as list -PreContent "<center><h2 id='memoriaram'>Memoria RAM (GB)</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tableramMemory')>Mostrar/Ocultar</button> </center>" |
 Out-String
 
-# se a memória disponível for maior ou igual 10%
+# se a memoria disponível for maior ou igual 10%
 if ([Math]::Round(($freeRam / $totalRam) * 100, 2) -gt 10) {
     $ramMemoryAlertJS = $null 
     $ramMemory = $ramMemory -replace "<td>waiting memory</td>", "<td class=green >OK</td>"       
 }
-# se a memória disponível for menor que 10% e maior que 5%
+# se a memoria disponível for menor que 10% e maior que 5%
 ElseIf (([Math]::Round(($freeRam / $totalRam) * 100, 2) -lt 10) -and ([Math]::Round(($freeRam / $totalRam) * 100, 2) -gt 5) ) {
     $ramMemoryAlertJS = $null
     $ramMemory = $ramMemory -replace "<td>waiting memory</td>", "<td class=yellow >Your performance is required</td>"
 }
-# se a memória disponível for menor q 5%
+# se a memoria disponível for menor q 5%
 ElseIf (([Math]::Round(($freeRam / $totalRam) * 100, 2) -lt 5)) {
     $ramMemoryAlertJS = "true"
     $ramMemory = $ramMemory -replace "<td>waiting memory</td>", "<td class=red >Your performance is extremely necessary</td>"   
@@ -436,18 +437,18 @@ for ($i = 0; $i -lt @($memoryTopFiveProcess).length; $i++) {
 
 }
 $memoryTopFiveProcess = $memoryTopFiveProcess | 
-ConvertTo-Html  -PreContent "<center><h2 id='memoriatopprocessos'>Memória RAM Top 5</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablememoryTopFiveProcess')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html  -PreContent "<center><h2 id='memoriatopprocess'>Memoria RAM Top 5</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablememoryTopFiveProcess')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $memoryTopFiveProcess = $memoryTopFiveProcess -replace "<table>", "<table class='tablememoryTopFiveProcess'>"
 
 
-######################### Gráficos ####################################
-######################### Gráficos ####################################
-######################### Gráficos ####################################
+######################### Graficos ####################################
+######################### Graficos ####################################
+######################### Graficos ####################################
 
 $GPU = Get-WmiObject win32_videocontroller |
 Select-Object Name, MaxRefreshRate, VideoModeDescription, AdapterRAM, DriverVersion |
-ConvertTo-Html -Fragment -as list -PreContent "<center><h2 id='placagrafica'>Placa gráfica</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablegpu')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -Fragment -as list -PreContent "<center><h2 id='placagrafica'>Placa grafica</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablegpu')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $GPU = $GPU -replace "<table>", "<table class='tablegpu'>"
 
@@ -471,14 +472,14 @@ ConvertTo-Html -fragment -PreContent "<center><h2 id='bios'>BIOS</h2><button id=
 Out-String
 $bios = $bios -replace "<table>", "<table class='tablebios'>"
 
-######################### Sessões ativas ####################################
-######################### Sessões ativas ####################################
-######################### Sessões ativas ####################################
+######################### Sessoes ativas ####################################
+######################### Sessoes ativas ####################################
+######################### Sessoes ativas ####################################
 
 $numUsers = Get-WmiObject Win32_OperatingSystem | Select -ExpandProperty NumberOfUsers
 $sessionsOpened = Get-WmiObject Win32_OperatingSystem | Select -ExpandProperty NumberOfUsers |
 Select-Object @{Label = "Sessions active"; Expression = { $numUsers } } |
-ConvertTo-Html -fragment -PreContent "<center><h2 id='sessoesativas'>Sessões ativas</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablesessionsOpened')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -fragment -PreContent "<center><h2 id='sessoesativas'>Sessoes ativas</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablesessionsOpened')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $sessionsOpened = $sessionsOpened -replace "<table>", "<table class='tablesessionsOpened'>"
 
@@ -565,37 +566,37 @@ else {
 
 $clusterNode = $clusterNode -replace "<table>", "<table class='tableclusterNode'>"
 
-######################### Serviços em execução ####################################
-######################### Serviços em execução ####################################
-######################### Serviços em execução ####################################
+######################### Servicos em execucao ####################################
+######################### Servicos em execucao ####################################
+######################### Servicos em execucao ####################################
 
 $startsvc = Get-WmiObject -Class win32_service |
 Where-Object { $_.State -eq "Running" } |
 Select-Object Name, Caption, state, Description |
-ConvertTo-Html -fragment -PreContent "<center><h2 id='servicosexecucao'>Serviços em EXECUÇÃO</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablestartsvc')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -fragment -PreContent "<center><h2 id='servicosexecucao'>Servicos em EXECUCAO</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablestartsvc')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $startsvc = $startsvc -replace "<table>", "<table class='tablestartsvc'>"
 
-######################### Serviços PARADOS ####################################
-######################### Serviços PARADOS ####################################
-######################### Serviços PARADOS ####################################
+######################### Servicos PARADOS ####################################
+######################### Servicos PARADOS ####################################
+######################### Servicos PARADOS ####################################
 
 $stopsvc = Get-WmiObject -Class win32_service |
 Where-Object { $_.State -eq "Stopped" } |
 Select-Object Name, Caption, state, Description |
-ConvertTo-Html -fragment -PreContent "<center><h2 id='servicosparados'>Serviços PARADOS</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablestopsvc')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -fragment -PreContent "<center><h2 id='servicosparados'>Servicos PARADOS</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablestopsvc')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $stopsvc = $stopsvc -replace "<table>", "<table class='tablestopsvc'>"
 
-######################### Serviços parados que deveriam estar rodando ####################################
-######################### Serviços parados que deveriam estar rodando ####################################
-######################### Serviços parados que deveriam estar rodando ####################################
+######################### Servicos parados que deveriam estar rodando ####################################
+######################### Servicos parados que deveriam estar rodando ####################################
+######################### Servicos parados que deveriam estar rodando ####################################
 
 $stopAutomaticsvc = " "
 $stopAutomaticsvc = Get-WmiObject -Class win32_service |
 Where-Object { $_.StartMode -eq "Auto" -and $_.State -eq "Stopped" } |
 Select-Object Name, state, Caption |                          
-ConvertTo-Html -fragment -PreContent "<center><h2 id='servicosparadosautomatic'>Serviços parados (StartMode = Automatic)</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablestopAutomaticsvc')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -fragment -PreContent "<center><h2 id='servicosparadosautomatic'>Servicos parados (StartMode = Automatic)</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablestopAutomaticsvc')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $stopAutomaticsvc = $stopAutomaticsvc -replace "<table>", "<table class='tablestopAutomaticsvc'>"
 
@@ -641,12 +642,12 @@ Out-String
 
 $routesDefualt = $routesDefualt -replace "<table>", "<table class='tableroutesdefaults'>"
 
-######################### Usuários locais ####################################
-######################### Usuários locais ####################################
-######################### Usuários locais ####################################
+######################### Usuarios locais ####################################
+######################### Usuarios locais ####################################
+######################### Usuarios locais ####################################
 
 $localUsers = Get-LocalUser | Select-Object Name, Description, AccountExpires, Enabled, PasswordChangeable, PasswordExpires, UserMayChangePassword, PasswordRequired, LastLogon, PrincipalSource, ObjectClass |
-ConvertTo-Html -fragment -as table -PreContent "<center><h2 id='placagrafica'>Usuários locais</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablelocalUsers')>Mostrar/Ocultar</button> </center>" |
+ConvertTo-Html -fragment -as table -PreContent "<center><h2 id='usuarioslocais'>Usuarios locais</h2><button id=showhidebutton onclick=MostrarOcultarTabelas('tablelocalUsers')>Mostrar/Ocultar</button> </center>" |
 Out-String
 $localUsers = $localUsers -replace "<table>", "<table class='tablelocalUsers'>"
 

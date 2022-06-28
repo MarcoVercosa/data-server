@@ -21,7 +21,11 @@ if ($conexao -ne $null) {
 }
 
 else {    
-    return "<h2> Server $server is not accessible or credentials are incorrect </h2>"
+    $return = @{
+        'message' = 'error'
+        'result' = "Server $server is not accessible or credentials are incorrect"
+    }
+    return $return | ConvertTo-Json
 }
     
 

@@ -28,8 +28,6 @@ interface IDataCPUTopFiveMap {
 }
 
 export default function CPUTopFive({ data }: IDataCPUTopFive) {
-    console.log(data)
-
     return (
         <>
             {
