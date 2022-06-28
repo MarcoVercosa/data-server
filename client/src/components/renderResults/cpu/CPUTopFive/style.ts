@@ -1,7 +1,8 @@
 import styled from "styled-components"
 
 export const ContainerNav: any = styled.nav`
-    margin-top: 55px;
+    margin-top: 20px;
+    padding: 20px
 `
 
 export const Container: any = styled.div`

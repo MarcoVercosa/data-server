@@ -57,14 +57,9 @@ function VerticalChart({ dataProps }: IDataCPUTopFive): JSX.Element {
         datasets: [
             {
                 label: 'TOTAL',
-                data: [100],
-                backgroundColor: 'rgb(0, 152, 254)',
+                data: [100, dataProps.Usage],
+                backgroundColor: ['rgb(0, 152, 254)', 'rgb(173, 7, 43)'],
             },
-            {
-                label: 'CPU USAGE %',
-                data: [dataProps.Usage],
-                backgroundColor: 'rgb(173, 7, 43)',
-            }
         ],
     };
 

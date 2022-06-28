@@ -25,8 +25,6 @@ interface IDataCPUTopFiveMap {
     CPU: number,
     UserName: string | null,
     Description: string
-
-
 }
 
 export default function CPUTopFive({ data }: IDataCPUTopFive) {
@@ -39,7 +37,7 @@ export default function CPUTopFive({ data }: IDataCPUTopFive) {
                     return (
                         <div>
                             <ContainerNav>
-                                < Card sx={{ minWidth: 275 }
+                                < Card sx={{ minWidth: 275, maxWidth: 275 }
                                 }>
                                     <CardContent>
                                         <Container>
@@ -71,10 +69,7 @@ export default function CPUTopFive({ data }: IDataCPUTopFive) {
                         </div>
                     )
                 })
-
             }
         </>
     )
-
 }
-

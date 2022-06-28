@@ -50,25 +50,20 @@ function VerticalChart({ dataProps }: IDataMemory): JSX.Element {
         labels,
         datasets: [
             {
-                label: `TOTAL ${dataProps.TotalRAM} GB`,
-                data: [100],
-                backgroundColor: 'rgb(0, 152, 254)',
+                label: `TOTAL`,
+                data: [100, Number(((dataProps.FreeRAM / dataProps.TotalRAM) * 100).toFixed(2))],
+                backgroundColor: ['rgb(0, 152, 254)', 'rgb(173, 7, 43)'],
             },
-            {
-                label: `FREE ${dataProps.FreeRAM} GB`,
-                data: [Number(((dataProps.FreeRAM / dataProps.TotalRAM) * 100).toFixed(2))],
-                backgroundColor: 'rgb(173, 7, 43)',
-            }
+
         ],
     };
-
     return (
         <>
             <div >
-                <h3 style={{ color: "#ededed" }}>RAM MEMORY</h3>
-                <div style={{}}>
-                    <Card sx={{ minWidth: 500 }}>
-                        <CardContent>
+                <h3 style={{ color: "#ededed" }}>RAM MEMORY </h3>
+                <div style={{ height: '300px', width: '300px', margin: "55px" }}>
+                    <Card sx={{ minWidth: 600, minHeight: 400 }}>
+                        <CardContent sx={{ minWidth: 600, minHeight: 400 }}>
                             <Bar options={options} data={data} />
                         </CardContent >
                         <CardActions>

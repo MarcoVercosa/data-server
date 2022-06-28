@@ -34,7 +34,7 @@ export default function MemoryTopFive({ data }: IDataMemoryTopFive) {
                     return (
                         <div>
                             <ContainerNav>
-                                < Card sx={{ minWidth: 275 }
+                                < Card sx={{ minWidth: 275, maxWidth: 275 }
                                 }>
                                     <CardContent>
                                         <Container>
@@ -45,7 +45,7 @@ export default function MemoryTopFive({ data }: IDataMemoryTopFive) {
                                                 <h4>Name:</h4><p>{dataMap.Name}</p>
                                             </div>
                                             <div>
-                                                <h4>Caption:</h4><p>{dataMap.Id}</p>
+                                                <h4>ID:</h4><p>{dataMap.Id}</p>
                                             </div>
                                             <div>
                                                 <h4>Process (GB):</h4><p>{dataMap.ProcessGB}</p>
