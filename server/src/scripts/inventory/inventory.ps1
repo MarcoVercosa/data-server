@@ -241,7 +241,7 @@ $style = @"
             z-index: 1;
             font-weight: 900;
             border-radius: 15px;
-            height: 550px;
+            height: 420px;
             overflow-y: scroll;
             width: 300px
         }
@@ -311,34 +311,7 @@ $style = @"
             background-image: linear-gradient(to bottom right, #fadd7d, #ee5e5e, #eb7bb3);
             box-shadow: none;
         }
-	</style>
-
-
-    $(if ($cpu | Select-String "Your performance is extremely necessary") {
-            '<script>
-                alert("CPU critical alert. Your performance is extremely necessary")
-            </script>'
-    })
-    $(if ($ramMemory | Select-String "Your performance is extremely necessary") {
-          '<script>
-                alert("MEMORY RAM critical alert. Need your attention")
-          </script>'
-    })
-    $(if ($disks | Select-String "Your performance is extremely necessary") {
-          '<script>
-                alert("Disk storage critical alert. Your performance is extremely necessary")
-          </script>'
-    }) 
-    
-    '<script>
-        function MostrarOcultarTabelas(tag) {
-            console.log("cliclou")
-            let get = document.getElementsByClassName(tag)
-            console.log(get)
-            get[0].style.display == "table" ? get[0].style.display = "none" : get[0].style.display = "table"
-        }
-     </script>'
-           
+	</style>           
 "@
 
 

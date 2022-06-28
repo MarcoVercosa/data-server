@@ -1,10 +1,15 @@
 import React from 'react'
-//import './index.css'
+import { useSelector } from "react-redux"
+import { getDataSearchServer } from '../../../redux/reducers/dataSearchServer';
+
 
 function RenderInventory(): JSX.Element {
+    const dataComponentSearchBarStore = useSelector(getDataSearchServer)
+    const inventory: any = dataComponentSearchBarStore.dataSearch.data
+
     return (
         <header className="App-header">
-            <div>INVENTORY</div>
+            <div dangerouslySetInnerHTML={{ __html: inventory }}></div>
         </header>
 
     );

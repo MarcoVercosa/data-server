@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from "react-redux"
 import { getDataSearchServer } from '../../../redux/reducers/dataSearchServer';
-import { getSearchBarHeaderComponent } from "../../../redux/reducers/searchBarHeaderComponent"
 import { CPUDataDiv, CPUTopFiveDiv } from './style';
 import DataCPU from "./dataCPU"
 import CPUTopFive from "./CPUTopFive"

@@ -21,7 +21,7 @@ function Home(): JSX.Element {
 
   //this function is called by HeaderComponent
   async function RenderResult(server: string, user: string, pass: string, option: string) {
-    dispatch(changeSelectOption({ selectOption: "" }))//  if there is any component rendered, force derender to request loading
+    dispatch(changeSelectOption({ selectOption: "" }))//  if there is any component rendered, force re-render to request loading
     setloading(true)
     dispatch(changeServerName({ serverName: server }))
     GetDataBackEndPost(option, server, user, pass)//find data API

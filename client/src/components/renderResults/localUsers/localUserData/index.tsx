@@ -20,24 +20,11 @@ interface ILocalUserProps {
     ObjectClass: string,
 
 }
-interface ILocalUserMap {
-    Name: string,
-    Description: string,
-    AccountExpires: boolean,
-    Enabled: boolean,
-    PasswordChangeable: boolean,
-    PasswordExpires: boolean,
-    UserMayChangePassword: boolean,
-    PasswordRequired: boolean,
-    LastLogon: string,
-    PrincipalSource: string,
-    ObjectClass: string,
-}
 
 export default function LocalUsersData({ data }: { data: ILocalUserProps[] }) {
     return (
         <>
-            {data.map((data: ILocalUserMap, index: number) => {
+            {data.map((data: ILocalUserProps) => {
                 return (
                     <ContainerDiv>
                         <Card sx={{ maxWidth: 250, minWidth: 250 }} style={{ marginBottom: "25px" }}>
